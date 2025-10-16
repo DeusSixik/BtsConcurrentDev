@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "btsengineconcurrent",
+  "version": "${version}",
+  "name": "BtsEngineConcurrent",
+  "description": "",
+  "authors": [
+    ""
+  ],
+  "contact": {
+    "homepage": ""
+  },
+  "license": "MIT",
+  "icon": "assets/btsengineconcurrent/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "dev.behindthescenery.btsengineconcurrent.fabric.BtsEngineConcurrentFabric"
+    ]
+  },
+  "mixins": [
+    "btsengineconcurrent.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.17.3",
+    "minecraft": "~1.21.1",
+    "java": ">=21"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}

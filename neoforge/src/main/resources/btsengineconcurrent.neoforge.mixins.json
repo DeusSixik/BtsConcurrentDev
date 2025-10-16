@@ -1,0 +1,25 @@
+{
+  "required": true,
+  "package": "dev.behindthescenery.btsengineconcurrent.neoforge.mixin_core.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "minVersion": "0.8",
+  "plugin": "dev.behindthescenery.btsengineconcurrent.neoforge.mixin_core.BtsEngineConcurrentMixinPluginNeoForge",
+  "mixins": [
+    "enhancedvisuals.EnhancedVisuals$ExplosionMixin",
+    "ice_and_fier.IceAndFire$ChunkCache$FixGetFullChunkFufure",
+    "ice_and_fier.IceAndFire$WorldChunkUtilMixin",
+    "immersive_optimization.MixinTickScheduler$FixEntityList",
+    "malum.Malum$SpiritTypeProperty$ImplementMethod",
+    "moonrise.EntityLookupMixin$AddPath",
+    "moonrise.LevelMixin$FixFinalMethods",
+    "moonrise.StateHolderMixin$FixNullReference",
+    "wootrevived.DropSimulatorMixin$FixEntityManager"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "client": [
+    "copycat.CopyCats$LiquidBlockRendererMixin$Fix",
+    "ice_and_fier.IceAndFire$ClientEvents$FixEntityStorage"
+  ]
+}
