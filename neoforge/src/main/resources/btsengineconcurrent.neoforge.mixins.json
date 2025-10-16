@@ -5,21 +5,36 @@
   "minVersion": "0.8",
   "plugin": "dev.behindthescenery.btsengineconcurrent.neoforge.mixin_core.BtsEngineConcurrentMixinPluginNeoForge",
   "mixins": [
-    "enhancedvisuals.EnhancedVisuals$ExplosionMixin",
-    "ice_and_fier.IceAndFire$ChunkCache$FixGetFullChunkFufure",
-    "ice_and_fier.IceAndFire$WorldChunkUtilMixin",
-    "immersive_optimization.MixinTickScheduler$FixEntityList",
-    "malum.Malum$SpiritTypeProperty$ImplementMethod",
-    "moonrise.EntityLookupMixin$AddPath",
-    "moonrise.LevelMixin$FixFinalMethods",
-    "moonrise.StateHolderMixin$FixNullReference",
-    "wootrevived.DropSimulatorMixin$FixEntityManager"
+    "fix.enhancedvisuals.EnhancedVisuals$ExplosionMixin",
+    "fix.ice_and_fier.IceAndFire$ChunkCache$FixGetFullChunkFufure",
+    "fix.ice_and_fier.IceAndFire$WorldChunkUtilMixin",
+    "fix.immersive_optimization.MixinTickScheduler$FixEntityList",
+    "fix.malum.Malum$SpiritTypeProperty$ImplementMethod",
+    "fix.moonrise.EntityLookupMixin$AddPath",
+    "fix.moonrise.LevelMixin$FixFinalMethods",
+    "fix.moonrise.StateHolderMixin$FixNullReference",
+    "fix.wootrevived.DropSimulatorMixin$FixEntityManager",
+    "rework_block_system.MixinChunkHolder$SynchronizeBlockChangesNetwork",
+    "rework_block_system.MixinCollectingNeighborUpdater",
+    "rework_block_system.MixinServerLevel$RemoveRecursiveCall",
+    "rework_block_system.MoonriseMixinServerChunkCache",
+    "rework_block_system.MoonriseMixinServerLevel",
+    "rework_chunk_generation.surface_rules.MixinSurfaceRules$Context$OptimizeOperation",
+    "rework_chunk_generation.surface_rules.MixinSurfaceRules$SequenceRuleSource$OptimizeOperation",
+    "rework_chunk_generation.surface_rules.conditions.MixinBiomeConditionSource",
+    "rework_chunk_generation.surface_rules.conditions.MixinLazyCondition$ApplyPath",
+    "rework_chunk_generation.surface_rules.conditions.MixinNoiseThresholdConditionSource",
+    "rework_chunk_generation.surface_rules.conditions.MixinSteepMaterialCondition",
+    "rework_chunk_generation.surface_rules.conditions.MixinStoneDepthCheck",
+    "rework_chunk_generation.surface_rules.conditions.MixinVerticalGradientConditionSource",
+    "rework_chunk_generation.surface_rules.conditions.MixinWaterCondition",
+    "rework_chunk_generation.surface_rules.conditions.MixinYConditionSource"
   ],
   "injectors": {
     "defaultRequire": 1
   },
   "client": [
-    "copycat.CopyCats$LiquidBlockRendererMixin$Fix",
-    "ice_and_fier.IceAndFire$ClientEvents$FixEntityStorage"
+    "fix.copycat.CopyCats$LiquidBlockRendererMixin$Fix",
+    "fix.ice_and_fier.IceAndFire$ClientEvents$FixEntityStorage"
   ]
 }

@@ -1,6 +1,8 @@
 package dev.behindthescenery.btsengineconcurrent;
 
 import dev.behindthescenery.btsengineconcurrent.common.MixinApplier;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.redstone.CollectingNeighborUpdater;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
@@ -17,19 +19,19 @@ public class BtsEngineConcurrentMixinPluginCommon implements IMixinConfigPlugin 
     public void onLoad(String s) {
         mixinAppliers.add(new MixinApplier("team.creative.enhancedvisuals.EnhancedVisuals", new MixinApplier.Param[] {
                 new MixinApplier.Param(
-                        "dev.behindthescenery.btsengineconcurrent.neoforge.mixin_core.mixin.enhancedvisuals.EnhancedVisuals$ExplosionMixin",
+                        "dev.behindthescenery.btsengineconcurrent.neoforge.mixin_core.mixin.fix.enhancedvisuals.EnhancedVisuals$ExplosionMixin",
                         "team.creative.enhancedvisuals.mixin.ExplosionMixin"
                 )
         }));
         mixinAppliers.add(new MixinApplier("", new MixinApplier.Param[]{
                 new MixinApplier.Param(
-                        "dev.behindthescenery.btsengineconcurrent.neoforge.mixin_core.mixin.moonrise.LevelMixin",
+                        "dev.behindthescenery.btsengineconcurrent.neoforge.mixin_core.mixin.fix.moonrise.LevelMixin",
                         "ca.spottedleaf.moonrise.mixin.chunk_system.LevelMixin"
                 )
         }));
         mixinAppliers.add(new MixinApplier("com.copycatsplus.copycats.Copycats", new MixinApplier.Param[]{
             new MixinApplier.Param(
-                    "dev.behindthescenery.btsengineconcurrent.neoforge.mixin_core.mixin.copycat.CopyCats$LiquidBlockRendererMixin$Fix",
+                    "dev.behindthescenery.btsengineconcurrent.neoforge.mixin_core.mixin.fix.copycat.CopyCats$LiquidBlockRendererMixin$Fix",
                     "com.copycatsplus.copycats.mixin.foundation.copycat.LiquidBlockRendererMixin"
             )
         }));

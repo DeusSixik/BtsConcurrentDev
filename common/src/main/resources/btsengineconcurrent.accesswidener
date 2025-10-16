@@ -2,3 +2,57 @@ accessWidener v2 named
 
 accessible class net/minecraft/server/level/ServerLevel$EntityCallbacks
 
+accessible class net/minecraft/world/level/redstone/CollectingNeighborUpdater$NeighborUpdates
+
+accessible class net/minecraft/server/level/ServerChunkCache$ChunkAndHolder
+
+accessible class net/minecraft/world/level/levelgen/SurfaceRules$SurfaceRule
+accessible class net/minecraft/world/level/levelgen/SurfaceRules$SequenceRule
+accessible class net/minecraft/world/level/levelgen/SurfaceRules$SequenceRuleSource
+accessible class net/minecraft/world/level/levelgen/SurfaceRules$RuleSource
+
+extendable class net/minecraft/world/level/levelgen/SurfaceRules$Context
+accessible field net/minecraft/world/level/levelgen/SurfaceRules$Context context Lnet/minecraft/world/level/levelgen/WorldGenerationContext;
+accessible field net/minecraft/world/level/levelgen/SurfaceRules$Context blockX I
+accessible field net/minecraft/world/level/levelgen/SurfaceRules$Context blockY I
+accessible field net/minecraft/world/level/levelgen/SurfaceRules$Context blockZ I
+accessible field net/minecraft/world/level/levelgen/SurfaceRules$Context waterHeight I
+accessible field net/minecraft/world/level/levelgen/SurfaceRules$Context lastUpdateY J
+accessible field net/minecraft/world/level/levelgen/SurfaceRules$Context lastUpdateXZ J
+accessible field net/minecraft/world/level/levelgen/SurfaceRules$Context stoneDepthBelow I
+accessible field net/minecraft/world/level/levelgen/SurfaceRules$Context stoneDepthAbove I
+accessible field net/minecraft/world/level/levelgen/SurfaceRules$Context surfaceDepth I
+accessible field net/minecraft/world/level/levelgen/SurfaceRules$Context chunk Lnet/minecraft/world/level/chunk/ChunkAccess;
+accessible field net/minecraft/world/level/levelgen/SurfaceRules$Context biome Ljava/util/function/Supplier;
+accessible field net/minecraft/world/level/levelgen/SurfaceRules$Context randomState Lnet/minecraft/world/level/levelgen/RandomState;
+accessible method net/minecraft/world/level/levelgen/SurfaceRules$Context getSurfaceSecondary ()D
+
+accessible method net/minecraft/world/level/levelgen/SurfaceSystem getSurfaceDepth (II)I
+
+accessible class net/minecraft/world/level/levelgen/SurfaceRules$Condition
+accessible class net/minecraft/world/level/levelgen/SurfaceRules$LazyCondition
+accessible class net/minecraft/world/level/levelgen/SurfaceRules$LazyXZCondition
+accessible class net/minecraft/world/level/levelgen/SurfaceRules$LazyYCondition
+accessible class net/minecraft/world/level/levelgen/SurfaceRules$NotCondition
+accessible class net/minecraft/world/level/levelgen/SurfaceRules$StateRule
+accessible class net/minecraft/world/level/levelgen/SurfaceRules$TestRule
+accessible class net/minecraft/world/level/levelgen/SurfaceRules$NotConditionSource
+
+accessible class net/minecraft/world/level/levelgen/SurfaceRules$StoneDepthCheck
+accessible field net/minecraft/world/level/levelgen/SurfaceRules$StoneDepthCheck addSurfaceDepth Z
+accessible field net/minecraft/world/level/levelgen/SurfaceRules$StoneDepthCheck offset I
+accessible field net/minecraft/world/level/levelgen/SurfaceRules$StoneDepthCheck secondaryDepthRange I
+
+accessible class net/minecraft/world/level/levelgen/SurfaceRules$YConditionSource
+accessible field net/minecraft/world/level/levelgen/SurfaceRules$YConditionSource addStoneDepth Z
+accessible field net/minecraft/world/level/levelgen/SurfaceRules$YConditionSource surfaceDepthMultiplier I
+accessible field net/minecraft/world/level/levelgen/SurfaceRules$YConditionSource anchor Lnet/minecraft/world/level/levelgen/VerticalAnchor;
+
+accessible class net/minecraft/world/level/levelgen/SurfaceRules$WaterConditionSource
+
+accessible class net/minecraft/world/level/levelgen/SurfaceRules$BiomeConditionSource
+accessible field net/minecraft/world/level/levelgen/SurfaceRules$BiomeConditionSource biomeNameTest Ljava/util/function/Predicate;
+
+accessible class net/minecraft/world/level/levelgen/SurfaceRules$NoiseThresholdConditionSource
+accessible class net/minecraft/world/level/levelgen/SurfaceRules$VerticalGradientConditionSource
+
