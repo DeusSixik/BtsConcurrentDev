@@ -90,3 +90,8 @@ accessible method net/minecraft/world/level/levelgen/blending/BlendingData getDe
 accessible method net/minecraft/world/level/levelgen/blending/BlendingData iterateDensities (IIIILnet/minecraft/world/level/levelgen/blending/BlendingData$DensityConsumer;)V
 
 accessible field net/minecraft/world/level/levelgen/carver/CaveCarverConfiguration floorLevel Lnet/minecraft/util/valueproviders/FloatProvider;
+
+accessible method net/minecraft/world/level/levelgen/SurfaceRules$Context <init> (Lnet/minecraft/world/level/levelgen/SurfaceSystem;Lnet/minecraft/world/level/levelgen/RandomState;Lnet/minecraft/world/level/chunk/ChunkAccess;Lnet/minecraft/world/level/levelgen/NoiseChunk;Ljava/util/function/Function;Lnet/minecraft/core/Registry;Lnet/minecraft/world/level/levelgen/WorldGenerationContext;)V
+accessible method net/minecraft/world/level/levelgen/SurfaceRules$Context updateXZ (II)V
+accessible method net/minecraft/world/level/levelgen/SurfaceRules$Context updateY (IIIIII)V
+accessible method net/minecraft/world/level/levelgen/SurfaceRules$Context getMinSurfaceLevel ()I

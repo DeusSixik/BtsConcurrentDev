@@ -95,7 +95,7 @@ public abstract class MixinSurfaceRules$Context$OptimizeOperation implements Sur
      * @reason Remove using {@code Supplier<Holder<Biome>>}. Now we cached biome how {@code Holder<Biome>} without {@code Supplier}
      */
     @Overwrite
-    protected void updateY(int stoneDepthAbove, int stoneDepthBelow, int waterHeight, int blockX, int blockY, int blockZ) {
+    public void updateY(int stoneDepthAbove, int stoneDepthBelow, int waterHeight, int blockX, int blockY, int blockZ) {
         ++this.lastUpdateY;
 
         this.pos.set(blockX, blockY, blockZ);
@@ -113,7 +113,7 @@ public abstract class MixinSurfaceRules$Context$OptimizeOperation implements Sur
      * @reason
      */
     @Overwrite
-    protected void updateXZ(int blockX, int blockZ) {
+    public void updateXZ(int blockX, int blockZ) {
         ++this.lastUpdateXZ;
         ++this.lastUpdateY;
         this.blockX = blockX;
@@ -149,7 +149,7 @@ public abstract class MixinSurfaceRules$Context$OptimizeOperation implements Sur
      * @reason Use inline math operation and cache
      */
     @Overwrite
-    protected int getMinSurfaceLevel() {
+    public int getMinSurfaceLevel() {
         final int cellX = blockCoordToSurfaceCell(this.blockX);
         final int cellZ = blockCoordToSurfaceCell(this.blockZ);
         final long cellKey = ChunkPos.asLong(cellX, cellZ);

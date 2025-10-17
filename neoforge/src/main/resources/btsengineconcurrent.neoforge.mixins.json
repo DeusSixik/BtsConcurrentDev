@@ -36,7 +36,8 @@
     "rework_chunk_generation.surface_rules.conditions.MixinStoneDepthCheck",
     "rework_chunk_generation.surface_rules.conditions.MixinVerticalGradientConditionSource",
     "rework_chunk_generation.surface_rules.conditions.MixinWaterCondition",
-    "rework_chunk_generation.surface_rules.conditions.MixinYConditionSource"
+    "rework_chunk_generation.surface_rules.conditions.MixinYConditionSource",
+    "rework_chunk_generation.surface_system.MixinSurfaceSystem"
   ],
   "injectors": {
     "defaultRequire": 1
