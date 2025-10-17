@@ -3,7 +3,6 @@ package dev.behindthescenery.btsengineconcurrent.neoforge.mixin_core.mixin.rewor
 import dev.behindthescenery.btsengineconcurrent.common.path.rework_chunk_generation.surface_rules.SurfaceRulesContextPath;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.util.Mth;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.chunk.ChunkAccess;

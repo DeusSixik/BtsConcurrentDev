@@ -3,7 +3,6 @@ package dev.behindthescenery.btsengineconcurrent.neoforge;
 import dev.behindthescenery.btsengineconcurrent.BtsEngineConcurrent;
 import dev.behindthescenery.btsengineconcurrent.ModLoaderHook;
 import dev.behindthescenery.btsengineconcurrent.common.tests.BlocksBenchmark;
-import dev.behindthescenery.btsengineconcurrent.common.tests.ConcurrentBlockPlacer;
 import net.minecraft.server.level.ServerLevel;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.Mod;

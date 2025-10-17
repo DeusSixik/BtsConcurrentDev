@@ -3,7 +3,6 @@ package dev.behindthescenery.btsengineconcurrent.neoforge.mixin_core.mixin.fix.m
 import com.bawnorton.mixinsquared.TargetHandler;
 import it.unimi.dsi.fastutil.objects.Reference2ObjectArrayMap;
 import it.unimi.dsi.fastutil.objects.ReferenceSet;
-import it.unimi.dsi.fastutil.objects.ReferenceSets;
 import net.minecraft.world.level.block.state.StateHolder;
 import net.minecraft.world.level.block.state.properties.Property;
 import org.spongepowered.asm.mixin.Final;

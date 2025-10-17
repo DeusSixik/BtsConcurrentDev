@@ -56,3 +56,37 @@ accessible field net/minecraft/world/level/levelgen/SurfaceRules$BiomeConditionS
 accessible class net/minecraft/world/level/levelgen/SurfaceRules$NoiseThresholdConditionSource
 accessible class net/minecraft/world/level/levelgen/SurfaceRules$VerticalGradientConditionSource
 
+accessible field net/minecraft/world/level/levelgen/NoiseChunk cellCountY I
+accessible field net/minecraft/world/level/levelgen/NoiseChunk cellCountXZ I
+accessible field net/minecraft/world/level/levelgen/NoiseChunk cellNoiseMinY I
+accessible field net/minecraft/world/level/levelgen/NoiseChunk firstNoiseX I
+accessible field net/minecraft/world/level/levelgen/NoiseChunk firstNoiseZ I
+accessible field net/minecraft/world/level/levelgen/NoiseChunk noiseSizeXZ I
+accessible field net/minecraft/world/level/levelgen/NoiseChunk cellWidth I
+accessible field net/minecraft/world/level/levelgen/NoiseChunk cellHeight I
+accessible field net/minecraft/world/level/levelgen/NoiseChunk cellStartBlockY I
+accessible field net/minecraft/world/level/levelgen/NoiseChunk inCellX I
+accessible field net/minecraft/world/level/levelgen/NoiseChunk inCellY I
+accessible field net/minecraft/world/level/levelgen/NoiseChunk inCellZ I
+accessible field net/minecraft/world/level/levelgen/NoiseChunk arrayIndex I
+accessible field net/minecraft/world/level/levelgen/NoiseChunk interpolating Z
+accessible field net/minecraft/world/level/levelgen/NoiseChunk fillingCell Z
+
+
+accessible class net/minecraft/world/level/levelgen/NoiseChunk$NoiseChunkDensityFunction
+
+accessible field net/minecraft/world/level/levelgen/Heightmap isOpaque Ljava/util/function/Predicate;
+accessible method net/minecraft/world/level/levelgen/Heightmap setHeight (III)V
+
+accessible method net/minecraft/world/level/chunk/ChunkAccess getHighestSectionPosition ()I
+
+
+accessible class net/minecraft/world/level/levelgen/blending/Blender$CellValueGetter
+accessible class net/minecraft/world/level/levelgen/blending/BlendingData$BiomeConsumer
+accessible class net/minecraft/world/level/levelgen/blending/BlendingData$DensityConsumer
+accessible class net/minecraft/world/level/levelgen/blending/BlendingData$HeightConsumer
+
+accessible method net/minecraft/world/level/levelgen/blending/BlendingData getDensity (III)D
+accessible method net/minecraft/world/level/levelgen/blending/BlendingData iterateDensities (IIIILnet/minecraft/world/level/levelgen/blending/BlendingData$DensityConsumer;)V
+
+accessible field net/minecraft/world/level/levelgen/carver/CaveCarverConfiguration floorLevel Lnet/minecraft/util/valueproviders/FloatProvider;

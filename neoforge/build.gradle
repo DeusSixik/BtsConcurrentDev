@@ -105,7 +105,6 @@ dependencies {
     compileOnly "curse.maven:jupiter-1072905:6843052"
     compileOnly "curse.maven:architectury-api-419699:5786327"
     compileOnly "com.iafenvoy.integration:integration-neoforge:0.2"
-
 }
 
 processResources {

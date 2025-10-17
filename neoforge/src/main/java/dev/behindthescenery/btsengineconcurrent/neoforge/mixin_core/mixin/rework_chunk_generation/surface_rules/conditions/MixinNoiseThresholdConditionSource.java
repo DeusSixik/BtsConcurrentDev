@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Unique;
 
-@Mixin(SurfaceRules.NoiseThresholdConditionSource.class)
+@Mixin(targets = "net.minecraft.world.level.levelgen.SurfaceRules$NoiseThresholdConditionSource")
 public class MixinNoiseThresholdConditionSource {
 
     @Unique
