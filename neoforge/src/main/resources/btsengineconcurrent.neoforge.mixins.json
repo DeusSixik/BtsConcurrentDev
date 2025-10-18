@@ -13,6 +13,7 @@
     "fix.moonrise.EntityLookupMixin$AddPath",
     "fix.moonrise.LevelMixin$FixFinalMethods",
     "fix.moonrise.StateHolderMixin$FixNullReference",
+    "fix.terrablender.Terrablender$NamespacedSurfaceRuleSource$FixBiomeGetter",
     "fix.wootrevived.DropSimulatorMixin$FixEntityManager",
     "rework_block_system.MixinChunkHolder$SynchronizeBlockChangesNetwork",
     "rework_block_system.MixinCollectingNeighborUpdater",

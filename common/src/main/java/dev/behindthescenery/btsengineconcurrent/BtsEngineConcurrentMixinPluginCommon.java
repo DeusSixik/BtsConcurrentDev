@@ -35,6 +35,12 @@ public class BtsEngineConcurrentMixinPluginCommon implements IMixinConfigPlugin 
                     "com.copycatsplus.copycats.mixin.foundation.copycat.LiquidBlockRendererMixin"
             )
         }));
+        mixinAppliers.add(new MixinApplier("com.cupboard.Cupboard", new MixinApplier.Param[]{
+            new MixinApplier.Param(
+                    "",
+                    "com.cupboard.mixin.ChunkLoadDebug"
+            )
+        }));
     }
 
     @Override

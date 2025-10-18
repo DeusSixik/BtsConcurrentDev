@@ -18,8 +18,11 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(SurfaceSystem.class)
+@Mixin(value = SurfaceSystem.class, priority = Integer.MAX_VALUE)
 public abstract class MixinSurfaceSystem {
 
     @Shadow
@@ -32,53 +35,51 @@ public abstract class MixinSurfaceSystem {
     @Shadow
     protected abstract void frozenOceanExtension(int minSurfaceLevel, Biome biome, BlockColumn blockColumn, BlockPos.MutableBlockPos topWaterPos, int x, int z, int height);
 
-    /**
-     * @author Sixik
-     * @reason Optimize allocate and operation with Heightmap
-     */
-    @Overwrite
-    public void buildSurface(RandomState randomState, BiomeManager biomeManager, Registry<Biome> biomes, boolean useLegacyRandomSource, WorldGenerationContext context, final ChunkAccess chunk, NoiseChunk noiseChunk, SurfaceRules.RuleSource ruleSource) {
-        final BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
+    @Inject(method = "buildSurface", at = @At("HEAD"), cancellable = true)
+    public void buildSurface(RandomState randomState, BiomeManager biomeManager, Registry<Biome> biomes, boolean useLegacyRandomSource, WorldGenerationContext context, ChunkAccess chunk, NoiseChunk noiseChunk, SurfaceRules.RuleSource ruleSource, CallbackInfo ci) {
         final ChunkPos chunkPos = chunk.getPos();
-
         final int startX = chunkPos.getMinBlockX();
         final int startZ = chunkPos.getMinBlockZ();
-        final int bottomY = chunk.getMinBuildHeight();
-        final BlockColumn blockColumn = new SurfaceSystemBlockColumn(chunk, mutableBlockPos);
 
-        final BlockPos.MutableBlockPos mutableBlockPos2 = new BlockPos.MutableBlockPos();
+        final LevelHeightAccessor heightView = chunk.getHeightAccessorForGeneration();
+        final int bottomY = heightView.getMinBuildHeight();
 
-        final SurfaceRules.Context ctx = new SurfaceRules.Context(ReflectionsUtils.cast(this),
-                randomState, chunk, noiseChunk, biomeManager::getBiome, biomes, context);
+        final BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
+        final BlockPos.MutableBlockPos biomePos = new BlockPos.MutableBlockPos();
 
-        final SurfaceRules.SurfaceRule surfaceRule = ruleSource.apply(ctx);
-        for (int k = 0; k < 16; ++k) {
-            final int m = startX + k;
+        final BlockColumn column = new SurfaceSystemBlockColumn(chunk, pos);
+        final SurfaceRules.Context ctx = new SurfaceRules.Context(ReflectionsUtils.cast(this), randomState, chunk, noiseChunk,
+                biomeManager::getBiome, biomes, context);
+        final SurfaceRules.SurfaceRule rule = ruleSource.apply(ctx);
 
-            for (int l = 0; l < 16; ++l) {
-                final int n = startZ + l;
-                final int o = chunk.getHeight(Heightmap.Types.WORLD_SURFACE_WG, k, l) + 1;
+        for (int dx = 0; dx < 16; ++dx) {
+            final int worldX = startX + dx;
+            for (int dz = 0; dz < 16; ++dz) {
+                final int worldZ = startZ + dz;
 
-                mutableBlockPos.setX(m).setZ(n);
+                int surfaceY = chunk.getHeight(Heightmap.Types.WORLD_SURFACE_WG, dx, dz) + 1;
 
-                int p = chunk.getHeight(Heightmap.Types.WORLD_SURFACE_WG, k, l) + 1;
+                pos.setX(worldX).setZ(worldZ);
+                final Holder<Biome> biomeHolder = biomeManager.getBiome(
+                        biomePos.set(worldX, useLegacyRandomSource ? 0 : surfaceY, worldZ)
+                );
 
-                final Holder<Biome> holder = biomeManager.getBiome(mutableBlockPos2.set(m, useLegacyRandomSource ? 0 : o, n));
-                final boolean isBadlands = holder.is(Biomes.ERODED_BADLANDS);
-                final boolean isFrozen = holder.is(Biomes.FROZEN_OCEAN) || holder.is(Biomes.DEEP_FROZEN_OCEAN);
+                final boolean isBadlands = biomeHolder.is(Biomes.ERODED_BADLANDS);
+                final boolean isFrozen = biomeHolder.is(Biomes.FROZEN_OCEAN) || biomeHolder.is(Biomes.DEEP_FROZEN_OCEAN);
 
                 if (isBadlands) {
-                    this.erodedBadlandsExtension(blockColumn, m, n, o, chunk);
-                    p = chunk.getHeight(Heightmap.Types.WORLD_SURFACE_WG, k, l) + 1;
+                    this.erodedBadlandsExtension(column, worldX, worldZ, surfaceY, chunk);
+                    surfaceY = chunk.getHeight(Heightmap.Types.WORLD_SURFACE_WG, dx, dz) + 1;
                 }
-                ctx.updateXZ(m, n);
+
+                ctx.updateXZ(worldX, worldZ);
 
                 int solidRun = 0;
                 int firstFluidAbove = Integer.MIN_VALUE;
-                int sFloor  = Integer.MAX_VALUE;
+                int sFloor = Integer.MAX_VALUE;
 
-                for (int y = p; y >= bottomY; --y) {
-                    final BlockState st = blockColumn.getBlock(y);
+                for (int y = surfaceY; y >= bottomY; --y) {
+                    BlockState st = column.getBlock(y);
 
                     if (st.isAir()) {
                         solidRun = 0;
@@ -87,35 +88,37 @@ public abstract class MixinSurfaceSystem {
                     }
 
                     if (!st.getFluidState().isEmpty()) {
-                        if (firstFluidAbove == Integer.MIN_VALUE)
-                            firstFluidAbove = y + 1;
+                        if (firstFluidAbove == Integer.MIN_VALUE) firstFluidAbove = y + 1;
                         continue;
                     }
 
-                    if(sFloor >= y) {
-                        int v = y - 1;
-                        while (v >= bottomY - 1 && isStone(blockColumn.getBlock(v))) {
-                            --v;
+                    if (sFloor >= y) {
+                        int scan = y - 1;
+                        while (scan >= bottomY - 1 && this.isStone(column.getBlock(scan))) {
+                            --scan;
                         }
-                        sFloor = v + 1;
+                        sFloor = scan + 1;
                     }
 
+                    ++solidRun;
                     int v = y - sFloor + 1;
-                    ctx.updateY(++solidRun, v, firstFluidAbove, m, y, n);
+                    ctx.updateY(solidRun, v, firstFluidAbove, worldX, y, worldZ);
 
-                    if(st == this.defaultBlock) {
-                        final BlockState to = surfaceRule.tryApply(m, y, n);
-                        if(to != null && to != st)
-                            blockColumn.setBlock(y, to);
+                    if (st == this.defaultBlock) {
+                        BlockState to = rule.tryApply(worldX, y, worldZ);
+                        if (to != null && to != st) {
+                            column.setBlock(y, to);
+                        }
                     }
                 }
 
-                if(isFrozen) {
-                    this.frozenOceanExtension(ctx.getMinSurfaceLevel(),
-                            holder.value(), blockColumn, mutableBlockPos2, m, n, o);
+                if (isFrozen) {
+                    this.frozenOceanExtension(ctx.getMinSurfaceLevel(), biomeHolder.value(),
+                            column, biomePos, worldX, worldZ, surfaceY);
                 }
             }
         }
+        ci.cancel();
     }
 
     /**

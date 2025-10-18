@@ -5,6 +5,7 @@ import net.minecraft.world.level.LevelHeightAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.BlockColumn;
 import net.minecraft.world.level.chunk.ChunkAccess;
+import org.jetbrains.annotations.NotNull;
 
 public class SurfaceSystemBlockColumn implements BlockColumn {
 
@@ -31,13 +32,13 @@ public class SurfaceSystemBlockColumn implements BlockColumn {
     }
 
     @Override
-    public BlockState getBlock(int pos) {
+    public @NotNull BlockState getBlock(int pos) {
         return chunk.getBlockState(blockPos.setY(pos));
     }
 
     @Override
     public void setBlock(int pos, BlockState state) {
-        LevelHeightAccessor levelHeightAccessor = chunk.getHeightAccessorForGeneration();
+       final LevelHeightAccessor levelHeightAccessor = chunk.getHeightAccessorForGeneration();
         if (pos >= levelHeightAccessor.getMinBuildHeight() && pos < levelHeightAccessor.getMaxBuildHeight()) {
             chunk.setBlockState(blockPos.setY(pos), state, false);
             if (!state.getFluidState().isEmpty()) {

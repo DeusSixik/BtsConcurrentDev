@@ -29,8 +29,7 @@ public record MixinApplier(String modClassPath, Param[] mixins) {
         } catch (ClassNotFoundException e) {
             return false;
         } catch (LinkageError e) {
-            // класс найден, но не удалось инициализировать
-            return true; // опционально — можно вернуть true, если он "существует", но не загрузился корректно
+            return true;
         }
     }
 

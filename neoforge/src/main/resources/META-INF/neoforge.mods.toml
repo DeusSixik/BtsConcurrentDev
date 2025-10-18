@@ -27,6 +27,8 @@ versionRange = "[1.21.1,)"
 ordering = "NONE"
 side = "BOTH"
 
+[[accessTransformers]]
+file="META-INF/accesstransformer.cfg"
 
 [[mixins]]
 config = "btsengineconcurrent.mixins.json"
