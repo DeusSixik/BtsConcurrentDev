@@ -1,6 +1,5 @@
 package dev.behindthescenery.btsengineconcurrent.neoforge.mixin_core.mixin.rework_chunk_generation.biome;
 
-import dev.behindthescenery.btsengineconcurrent.common.path.rework_chunk_generation.biome.PathBiomeSource$BiomeGetter;
 import net.minecraft.core.Holder;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeResolver;

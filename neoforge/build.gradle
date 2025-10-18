@@ -57,6 +57,10 @@ repositories {
         name "kTT MavenReleases"
         url "https://maven.kessokuteatime.work/releases"
     }
+
+    flatDir {
+        dirs 'libs'
+    }
 }
 
 dependencies {
@@ -115,6 +119,7 @@ dependencies {
     compileOnly "curse.maven:oh-the-biomes-weve-gone-1070751:7040627"
 
     compileOnly "curse.maven:environmental-388992:7122147"
+
 }
 
 processResources {

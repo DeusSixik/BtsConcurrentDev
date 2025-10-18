@@ -2,7 +2,8 @@ package dev.behindthescenery.btsengineconcurrent.neoforge.mixin_core.mixin.rewor
 
 import net.minecraft.server.level.ServerLevel;
 import org.objectweb.asm.Opcodes;
-import org.spongepowered.asm.mixin.*;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
