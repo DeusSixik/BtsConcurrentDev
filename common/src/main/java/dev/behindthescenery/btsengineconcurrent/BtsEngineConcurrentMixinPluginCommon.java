@@ -45,6 +45,10 @@ public class BtsEngineConcurrentMixinPluginCommon implements IMixinConfigPlugin 
                 "dev.behindthescenery.btsengineconcurrent.neoforge.mixin_core.mixin.fix.biomewegone.BiomeWeGone$SurfaceSystemMixin",
                 "net.potionstudios.biomeswevegone.mixin.SurfaceSystemMixin"
         ));
+        create("com.teamabnormals.environmental.core.Environmental", new MixinApplier.Param(
+                "dev.behindthescenery.btsengineconcurrent.neoforge.mixin_core.mixin.fix.environmental.Environmental$SurfaceSystemMixin",
+                "com.teamabnormals.environmental.core.mixin.SurfaceSystemMixin"
+        ));
     }
 
     public void create(String modClass, MixinApplier.Param... params) {

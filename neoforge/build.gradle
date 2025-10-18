@@ -113,6 +113,8 @@ dependencies {
     compileOnly "curse.maven:biolith-852512:7074761"
     compileOnly "curse.maven:natures-spirit-1044992:6962784"
     compileOnly "curse.maven:oh-the-biomes-weve-gone-1070751:7040627"
+
+    compileOnly "curse.maven:environmental-388992:7122147"
 }
 
 processResources {

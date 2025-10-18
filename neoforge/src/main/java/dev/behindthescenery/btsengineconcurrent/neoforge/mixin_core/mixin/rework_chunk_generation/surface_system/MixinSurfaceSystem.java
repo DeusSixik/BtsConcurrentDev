@@ -66,7 +66,6 @@ public abstract class MixinSurfaceSystem {
                 );
 
                 final boolean isBadlands = biomeHolder.is(Biomes.ERODED_BADLANDS);
-
                 if (isBadlands) {
                     this.erodedBadlandsExtension(column, worldX, worldZ, surfaceY, chunk);
                     surfaceY = chunk.getHeight(Heightmap.Types.WORLD_SURFACE_WG, dx, dz) + 1;

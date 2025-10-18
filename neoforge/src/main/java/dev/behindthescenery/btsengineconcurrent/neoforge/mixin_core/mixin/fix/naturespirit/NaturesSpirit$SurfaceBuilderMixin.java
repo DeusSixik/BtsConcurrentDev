@@ -85,7 +85,7 @@ public class NaturesSpirit$SurfaceBuilderMixin {
 
     @Unique
     private void bts$naturespirit$placeSugiPillar(BlockColumn column, int x, int z, int surfaceY, LevelHeightAccessor chunk) {
-        double e = Math.min(Math.abs(this.naturespirit$sugiSurfaceNoise.getValue((double)x, (double)0.0F, (double)z) * (double)8.5F), this.naturespirit$sugiPillarRoofNoise.getValue((double)x * 0.2, (double)0.0F, (double)z * 0.2) * (double)12.0F);
+        double e = Math.min(Math.abs(this.naturespirit$sugiSurfaceNoise.getValue(x, 0.0F, z) * (double)8.5F), this.naturespirit$sugiPillarRoofNoise.getValue((double)x * 0.2, (double)0.0F, (double)z * 0.2) * (double)12.0F);
         if (e > (double)-10.0F) {
             double h = Math.abs(this.naturespirit$sugiPillarNoise.getValue((double)x * 0.9, (double)0.0F, (double)z * 0.8) * 2.05);
             double i = (double)32.0F + Math.min(e * e * (double)6.75F, Math.ceil(h * (double)30.0F) + (double)48.0F);

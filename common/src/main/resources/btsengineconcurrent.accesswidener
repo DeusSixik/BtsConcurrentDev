@@ -95,3 +95,8 @@ accessible method net/minecraft/world/level/levelgen/SurfaceRules$Context <init>
 accessible method net/minecraft/world/level/levelgen/SurfaceRules$Context updateXZ (II)V
 accessible method net/minecraft/world/level/levelgen/SurfaceRules$Context updateY (IIIIII)V
 accessible method net/minecraft/world/level/levelgen/SurfaceRules$Context getMinSurfaceLevel ()I
+
+accessible class net/minecraft/world/level/levelgen/presets/WorldPresets$Bootstrap
+
+
+accessible method net/minecraft/world/level/levelgen/presets/WorldPresets$Bootstrap registerOverworlds (Lnet/minecraft/world/level/biome/BiomeSource;)V

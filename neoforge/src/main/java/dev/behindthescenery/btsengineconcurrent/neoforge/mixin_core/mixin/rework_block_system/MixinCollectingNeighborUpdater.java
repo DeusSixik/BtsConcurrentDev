@@ -12,6 +12,7 @@ import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
+@Deprecated
 @Mixin(CollectingNeighborUpdater.class)
 public class MixinCollectingNeighborUpdater {
 
@@ -39,16 +40,14 @@ public class MixinCollectingNeighborUpdater {
 
     /**
      * @author Sixik
-     * @reason
+     * @reason Old code poop
      */
     @Overwrite
     private void addAndRun(BlockPos pos, CollectingNeighborUpdater.NeighborUpdates updates) {
-        int currentDepth = atomic_depth.get(); // Читаем атомарно
+        int currentDepth = atomic_depth.get();
         boolean bl = currentDepth > 0;
         boolean bl2 = this.maxChainedNeighborUpdates >= 0 && currentDepth >= this.maxChainedNeighborUpdates;
 
-        // Оптимистично инкрементируем depth (CAS-подобно, но без CAS для простоты)
-        // В худшем случае depth будет немного неточным — приемлемо для Minecraft
         atomic_depth.incrementAndGet();
 
         if (!bl2) {
@@ -76,18 +75,15 @@ public class MixinCollectingNeighborUpdater {
     @Overwrite
     private void runUpdates() {
         try {
-            // Локальные копии для обработки — избегаем модификации shared state во время цикла
             List<CollectingNeighborUpdater.NeighborUpdates> localPending = new ArrayList<>();
 
             while (true) {
-                // Копируем pending из ThreadLocal (если используем) или из shared ArrayList
-                // В простом варианте: атомарно копируем весь pending
-                synchronized (addedThisLayer) { // Минимальный lock только для копирования — компромисс
+
+                synchronized (addedThisLayer) {
                     localPending.addAll(addedThisLayer);
                     addedThisLayer.clear();
                 }
 
-                // Добавляем из concurrent queue
                 while (!bts$concurrent_deque.isEmpty()) {
                     CollectingNeighborUpdater.NeighborUpdates entry = bts$concurrent_deque.pollFirst();
                     if (entry != null) {
@@ -99,7 +95,6 @@ public class MixinCollectingNeighborUpdater {
                     break;
                 }
 
-                // Обрабатываем локальную копию — нет race conditions
                 for (CollectingNeighborUpdater.NeighborUpdates entry : localPending) {
                     entry.runNext(this.level);
                 }
@@ -107,9 +102,7 @@ public class MixinCollectingNeighborUpdater {
                 localPending.clear();
             }
         } finally {
-            // Сбрасываем depth до 0 только в конце — может быть неточным при concurrency
             atomic_depth.set(0);
-            // Очищаем queue (concurrent, safe)
             bts$concurrent_deque.clear();
         }
     }
