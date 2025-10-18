@@ -17,30 +17,38 @@ public class BtsEngineConcurrentMixinPluginCommon implements IMixinConfigPlugin 
 
     @Override
     public void onLoad(String s) {
-        mixinAppliers.add(new MixinApplier("team.creative.enhancedvisuals.EnhancedVisuals", new MixinApplier.Param[] {
-                new MixinApplier.Param(
-                        "dev.behindthescenery.btsengineconcurrent.neoforge.mixin_core.mixin.fix.enhancedvisuals.EnhancedVisuals$ExplosionMixin",
-                        "team.creative.enhancedvisuals.mixin.ExplosionMixin"
-                )
-        }));
-        mixinAppliers.add(new MixinApplier("", new MixinApplier.Param[]{
-                new MixinApplier.Param(
-                        "dev.behindthescenery.btsengineconcurrent.neoforge.mixin_core.mixin.fix.moonrise.LevelMixin",
-                        "ca.spottedleaf.moonrise.mixin.chunk_system.LevelMixin"
-                )
-        }));
-        mixinAppliers.add(new MixinApplier("com.copycatsplus.copycats.Copycats", new MixinApplier.Param[]{
-            new MixinApplier.Param(
-                    "dev.behindthescenery.btsengineconcurrent.neoforge.mixin_core.mixin.fix.copycat.CopyCats$LiquidBlockRendererMixin$Fix",
-                    "com.copycatsplus.copycats.mixin.foundation.copycat.LiquidBlockRendererMixin"
-            )
-        }));
-        mixinAppliers.add(new MixinApplier("com.cupboard.Cupboard", new MixinApplier.Param[]{
-            new MixinApplier.Param(
-                    "",
-                    "com.cupboard.mixin.ChunkLoadDebug"
-            )
-        }));
+        create("team.creative.enhancedvisuals.EnhancedVisuals", new MixinApplier.Param(
+                "dev.behindthescenery.btsengineconcurrent.neoforge.mixin_core.mixin.fix.enhancedvisuals.EnhancedVisuals$ExplosionMixin",
+                "team.creative.enhancedvisuals.mixin.ExplosionMixin"
+        ));
+        create("", new MixinApplier.Param(
+                "dev.behindthescenery.btsengineconcurrent.neoforge.mixin_core.mixin.fix.moonrise.LevelMixin",
+                "ca.spottedleaf.moonrise.mixin.chunk_system.LevelMixin"
+        ));
+        create("com.copycatsplus.copycats.Copycats", new MixinApplier.Param(
+                "dev.behindthescenery.btsengineconcurrent.neoforge.mixin_core.mixin.fix.copycat.CopyCats$LiquidBlockRendererMixin$Fix",
+                "com.copycatsplus.copycats.mixin.foundation.copycat.LiquidBlockRendererMixin"
+        ));
+        create("com.cupboard.Cupboard", new MixinApplier.Param(
+                "",
+                "com.cupboard.mixin.ChunkLoadDebug"
+        ));
+        create("com.terraformersmc.biolith.impl.Biolith", new MixinApplier.Param(
+                "dev.behindthescenery.btsengineconcurrent.neoforge.mixin_core.mixin.fix.biolith.Biolith$MixinSurfaceBuilder",
+                "com.terraformersmc.biolith.impl.mixin.MixinSurfaceBuilder"
+        ));
+        create("net.hibiscus.naturespirit.NatureSpirit", new MixinApplier.Param(
+                "dev.behindthescenery.btsengineconcurrent.neoforge.mixin_core.mixin.fix.naturespirit.NaturesSpirit$SurfaceBuilderMixin",
+                "net.hibiscus.naturespirit.mixin.SurfaceBuilderMixin"
+        ));
+        create("net.potionstudios.biomeswevegone.BiomesWeveGone", new MixinApplier.Param(
+                "dev.behindthescenery.btsengineconcurrent.neoforge.mixin_core.mixin.fix.biomewegone.BiomeWeGone$SurfaceSystemMixin",
+                "net.potionstudios.biomeswevegone.mixin.SurfaceSystemMixin"
+        ));
+    }
+
+    public void create(String modClass, MixinApplier.Param... params) {
+        mixinAppliers.add(new MixinApplier(modClass, params));
     }
 
     @Override

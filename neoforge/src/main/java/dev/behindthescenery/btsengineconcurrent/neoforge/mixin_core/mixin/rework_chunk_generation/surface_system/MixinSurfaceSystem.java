@@ -18,11 +18,8 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(value = SurfaceSystem.class, priority = Integer.MAX_VALUE)
+@Mixin(value = SurfaceSystem.class, priority = Integer.MAX_VALUE - 2)
 public abstract class MixinSurfaceSystem {
 
     @Shadow
@@ -35,8 +32,12 @@ public abstract class MixinSurfaceSystem {
     @Shadow
     protected abstract void frozenOceanExtension(int minSurfaceLevel, Biome biome, BlockColumn blockColumn, BlockPos.MutableBlockPos topWaterPos, int x, int z, int height);
 
-    @Inject(method = "buildSurface", at = @At("HEAD"), cancellable = true)
-    public void buildSurface(RandomState randomState, BiomeManager biomeManager, Registry<Biome> biomes, boolean useLegacyRandomSource, WorldGenerationContext context, ChunkAccess chunk, NoiseChunk noiseChunk, SurfaceRules.RuleSource ruleSource, CallbackInfo ci) {
+    /**
+     * @author Sixik
+     * @reason Optimize using resources.
+     */
+    @Overwrite
+    public void buildSurface(RandomState randomState, BiomeManager biomeManager, Registry<Biome> biomes, boolean useLegacyRandomSource, WorldGenerationContext context, ChunkAccess chunk, NoiseChunk noiseChunk, SurfaceRules.RuleSource ruleSource) {
         final ChunkPos chunkPos = chunk.getPos();
         final int startX = chunkPos.getMinBlockX();
         final int startZ = chunkPos.getMinBlockZ();
@@ -65,7 +66,6 @@ public abstract class MixinSurfaceSystem {
                 );
 
                 final boolean isBadlands = biomeHolder.is(Biomes.ERODED_BADLANDS);
-                final boolean isFrozen = biomeHolder.is(Biomes.FROZEN_OCEAN) || biomeHolder.is(Biomes.DEEP_FROZEN_OCEAN);
 
                 if (isBadlands) {
                     this.erodedBadlandsExtension(column, worldX, worldZ, surfaceY, chunk);
@@ -112,13 +112,14 @@ public abstract class MixinSurfaceSystem {
                     }
                 }
 
+                final boolean isFrozen = biomeHolder.is(Biomes.FROZEN_OCEAN) || biomeHolder.is(Biomes.DEEP_FROZEN_OCEAN);
+
                 if (isFrozen) {
                     this.frozenOceanExtension(ctx.getMinSurfaceLevel(), biomeHolder.value(),
                             column, biomePos, worldX, worldZ, surfaceY);
                 }
             }
         }
-        ci.cancel();
     }
 
     /**

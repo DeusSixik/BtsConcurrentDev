@@ -5,6 +5,8 @@
   "minVersion": "0.8",
   "plugin": "dev.behindthescenery.btsengineconcurrent.neoforge.mixin_core.BtsEngineConcurrentMixinPluginNeoForge",
   "mixins": [
+    "fix.biolith.Biolith$MixinSurfaceBuilder",
+    "fix.biomewegone.BiomeWeGone$SurfaceSystemMixin",
     "fix.enhancedvisuals.EnhancedVisuals$ExplosionMixin",
     "fix.ice_and_fier.IceAndFire$ChunkCache$FixGetFullChunkFufure",
     "fix.ice_and_fier.IceAndFire$WorldChunkUtilMixin",
@@ -13,6 +15,7 @@
     "fix.moonrise.EntityLookupMixin$AddPath",
     "fix.moonrise.LevelMixin$FixFinalMethods",
     "fix.moonrise.StateHolderMixin$FixNullReference",
+    "fix.naturespirit.NaturesSpirit$SurfaceBuilderMixin",
     "fix.terrablender.Terrablender$NamespacedSurfaceRuleSource$FixBiomeGetter",
     "fix.wootrevived.DropSimulatorMixin$FixEntityManager",
     "rework_block_system.MixinChunkHolder$SynchronizeBlockChangesNetwork",

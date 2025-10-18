@@ -6,6 +6,7 @@ import dev.behindthescenery.btsengineconcurrent.common.tests.BlocksBenchmark;
 import net.minecraft.server.level.ServerLevel;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.item.ItemTossEvent;
 
@@ -25,11 +26,15 @@ public final class BtsEngineConcurrentNeoForge {
             }
         };
 
+
         BtsEngineConcurrent.init();
+
+        if(FMLEnvironment.production) return;
         NeoForge.EVENT_BUS.addListener(BtsEngineConcurrentNeoForge::onPlayerDropItem);
     }
 
     private static void onPlayerDropItem(ItemTossEvent event) {
+
         var player = event.getPlayer();
         if(player.level().isClientSide) return;
 
