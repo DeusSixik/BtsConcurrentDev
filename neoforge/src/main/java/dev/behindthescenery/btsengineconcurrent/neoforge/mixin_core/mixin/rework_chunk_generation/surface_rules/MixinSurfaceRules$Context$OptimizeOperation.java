@@ -6,10 +6,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.chunk.ChunkAccess;
-import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraft.world.level.levelgen.NoiseChunk;
-import net.minecraft.world.level.levelgen.SurfaceRules;
-import net.minecraft.world.level.levelgen.SurfaceSystem;
+import net.minecraft.world.level.levelgen.*;
 import org.apache.commons.lang3.NotImplementedException;
 import org.spongepowered.asm.mixin.*;
 
@@ -23,7 +20,8 @@ public abstract class MixinSurfaceRules$Context$OptimizeOperation implements Sur
 
     @Shadow
     @Final
-    private Function<BlockPos, Holder<Biome>> biomeGetter;
+    @Mutable
+    public Function<BlockPos, Holder<Biome>> biomeGetter;
 
     @Shadow
     @Final
@@ -52,7 +50,8 @@ public abstract class MixinSurfaceRules$Context$OptimizeOperation implements Sur
     public int blockX;
     @Shadow
     @Final
-    private NoiseChunk noiseChunk;
+    @Mutable
+    public NoiseChunk noiseChunk;
 
     @Shadow
     private static int surfaceCellToBlockCoord(int surfaceCell) {
@@ -71,12 +70,26 @@ public abstract class MixinSurfaceRules$Context$OptimizeOperation implements Sur
     public long lastUpdateXZ;
     @Shadow
     @Final
-    private SurfaceSystem system;
+    @Mutable
+    SurfaceSystem system;
     @Shadow
     @Final
+    @Mutable
     public ChunkAccess chunk;
     @Unique
     private Holder<Biome> bts$cached_biome;
+
+
+    @Shadow
+    @Final
+    @Mutable
+    public RandomState randomState;
+
+    @Final
+    @Shadow
+    @Mutable
+    public WorldGenerationContext context;
+
     @Unique private boolean bts$hasCachedBiome;
 
     @Unique private static final int CELL_SIZE = 16;

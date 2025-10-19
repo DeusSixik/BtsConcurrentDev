@@ -12,6 +12,11 @@ import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * This code is not intended for moonrise and was migrated from the old version of the mod as a temporary solution.
+ * If this code exists, then moving elements and redstone blocks do not work.
+ */
+//TODO: Complete redesign to work with moonrise
 @Deprecated
 @Mixin(CollectingNeighborUpdater.class)
 public class MixinCollectingNeighborUpdater {
@@ -70,7 +75,7 @@ public class MixinCollectingNeighborUpdater {
 
     /**
      * @author Sixik
-     * @reason
+     * @reason Old code poop
      */
     @Overwrite
     private void runUpdates() {

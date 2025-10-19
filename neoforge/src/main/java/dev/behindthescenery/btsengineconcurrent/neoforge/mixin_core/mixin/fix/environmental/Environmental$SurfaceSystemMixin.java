@@ -3,6 +3,7 @@ package dev.behindthescenery.btsengineconcurrent.neoforge.mixin_core.mixin.fix.e
 import com.bawnorton.mixinsquared.TargetHandler;
 import com.teamabnormals.environmental.core.registry.datapack.EnvironmentalBiomes;
 import com.teamabnormals.environmental.core.registry.datapack.EnvironmentalNoiseParameters;
+import dev.behindthescenery.btsengineconcurrent.common.chunk_generation.surface_system.SurfaceSystemBlockColumn;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -98,13 +99,13 @@ public abstract class Environmental$SurfaceSystemMixin {
                                                 int l,
                                                 int j1,
                                                 int surfaceY) {
-        int y = chunkAccess.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, k, l) + 1;
-        Holder<Biome> biome = biomeManager.getBiome(mutable1.set(i1, y - 1, j1));
+        final int y = chunkAccess.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, k, l) + 1;
+        final Holder<Biome> biome = biomeManager.getBiome(mutable1.set(i1, y - 1, j1));
         if (!biome.is(EnvironmentalBiomes.PINE_BARRENS) && !biome.is(EnvironmentalBiomes.SNOWY_PINE_BARRENS) && !biome.is(EnvironmentalBiomes.OLD_GROWTH_PINE_BARRENS) && !biome.is(EnvironmentalBiomes.SNOWY_OLD_GROWTH_PINE_BARRENS)) {
             this.bts$enviromental$pineBarrensStoneRaises[k][l] = null;
         } else {
-            double noise = this.bts$enviromental$getNoiseAt(i1, j1);
-            boolean flag = noise > (double)0.0F;
+            final double noise = this.bts$enviromental$getNoiseAt(i1, j1);
+            final boolean flag = noise > (double)0.0F;
             this.bts$enviromental$pineBarrensStoneRaises[k][l] = new int[]{y, y + bts$enviromental$getRaise(noise), flag ? 1 : 0};
             if (flag) {
                 this.bts$enviromental$raisePineBarrensStone = true;
@@ -124,43 +125,24 @@ public abstract class Environmental$SurfaceSystemMixin {
     private void bts$enviromental$generateRaisedStone(RandomState randomState, BiomeManager biomeManager, Registry<Biome> registry, boolean useLegacyRandomSource, WorldGenerationContext context, final ChunkAccess chunk, NoiseChunk noiseChunk, SurfaceRules.RuleSource ruleSource, CallbackInfo ci) {
         final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
         final ChunkPos chunkPos = chunk.getPos();
-        int i = chunkPos.getMinBlockX();
-        int j = chunkPos.getMinBlockZ();
-        BlockColumn blockColumn = new BlockColumn() {
-            public BlockState getBlock(int y) {
-                return chunk.getBlockState(mutable.setY(y));
-            }
-
-            public void setBlock(int y, BlockState state) {
-                LevelHeightAccessor heightAccessor = chunk.getHeightAccessorForGeneration();
-                if (y >= heightAccessor.getMinBuildHeight() && y < heightAccessor.getMaxBuildHeight()) {
-                    chunk.setBlockState(mutable.setY(y), state, false);
-                    if (!state.getFluidState().isEmpty()) {
-                        chunk.markPosForPostprocessing(mutable);
-                    }
-                }
-
-            }
-
-            public String toString() {
-                return "ChunkBlockColumn " + String.valueOf(chunkPos);
-            }
-        };
+        final int i = chunkPos.getMinBlockX();
+        final int j = chunkPos.getMinBlockZ();
+        final BlockColumn blockColumn = new SurfaceSystemBlockColumn(chunk, mutable);
         if (this.bts$enviromental$raisePineBarrensStone) {
             for(int x = 0; x < 16; ++x) {
                 for(int z = 0; z < 16; ++z) {
-                    int[] raise = this.bts$enviromental$pineBarrensStoneRaises[x][z];
+                    final int[] raise = this.bts$enviromental$pineBarrensStoneRaises[x][z];
                     if (raise != null && raise[2] != 0) {
-                        int y = raise[0];
+                        final int y = raise[0];
                         int y1 = raise[1];
                         int m = 0;
                         mutable.setX(x + i).setZ(z + j);
 
                         for(Direction direction : Direction.Plane.HORIZONTAL) {
-                            int x1 = x + direction.getStepX();
-                            int z1 = z + direction.getStepZ();
+                            final int x1 = x + direction.getStepX();
+                            final int z1 = z + direction.getStepZ();
                             if (x1 >= 0 && x1 < 16 && z1 >= 0 && z1 < 16) {
-                                int[] raise1 = this.bts$enviromental$pineBarrensStoneRaises[x1][z1];
+                                final int[] raise1 = this.bts$enviromental$pineBarrensStoneRaises[x1][z1];
                                 if (raise1 == null) {
                                     m = 0;
                                     --y1;

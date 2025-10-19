@@ -16,19 +16,23 @@ import java.util.Objects;
 public abstract class MoonriseMixinServerLevel implements ChunkSystemServerLevel {
 
 
+    /**
+     * @author Sixik
+     * @reason Fix null error
+     */
     @Inject(method = "moonrise$clearUnsyncedChunks",
             at = @At("HEAD"), cancellable = true)
     public void bts$clearUnsyncedChunks(CallbackInfo ci) {
         ci.cancel();
         final ReferenceList<ChunkHolder> un = moonrise$getUnsyncedChunks();
-
-        ChunkHolder[] chunkHolders = un.getRawDataUnchecked();
-        int totalUnsyncedChunks = un.size();
+        final ChunkHolder[] chunkHolders = un.getRawDataUnchecked();
+        final int totalUnsyncedChunks = un.size();
         Objects.checkFromToIndex(0, totalUnsyncedChunks, chunkHolders.length);
 
         for(int i = 0; i < totalUnsyncedChunks; ++i) {
-            ChunkHolder chunkHolder = chunkHolders[i];
+            final ChunkHolder chunkHolder = chunkHolders[i];
 
+            //Check null
             if(chunkHolder == null) continue;
 
             ((ChunkSystemChunkHolder)chunkHolder).moonrise$markDirtyForPlayers(false);

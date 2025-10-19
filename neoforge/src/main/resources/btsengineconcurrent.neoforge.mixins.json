@@ -29,6 +29,7 @@
     "rework_chunk_generation.blending.MixinBlendingData",
     "rework_chunk_generation.carver.MixinCaveWorldCarver",
     "rework_chunk_generation.carver.MixinNoiseBasedChunkGenerator$CarverPool",
+    "rework_chunk_generation.carver.MixinWorldCarver",
     "rework_chunk_generation.carver.MixinWorldGenerationContext$FixNullCrash",
     "rework_chunk_generation.features.MixinConfiguredFeature",
     "rework_chunk_generation.height_map.MixinHeightmap",

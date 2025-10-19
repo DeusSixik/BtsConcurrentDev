@@ -27,7 +27,10 @@ public class MoonriseMixinServerChunkCache {
     private ServerLevel level;
 
 
-
+    /**
+     * @author Sixik
+     * @reason Fix null error
+     */
     @TargetHandler(
             mixin = "ca.spottedleaf.moonrise.mixin.chunk_system.ServerChunkCacheMixin",
             name = "fixBroadcastChanges"
@@ -35,16 +38,17 @@ public class MoonriseMixinServerChunkCache {
     @Inject(method = "@MixinSquared:Handler", at = @At("HEAD"), cancellable = true)
     private void fixBroadcastChanges(List<ServerChunkCache.ChunkAndHolder> instance, Consumer<ServerChunkCache.ChunkAndHolder> consumer, CallbackInfo ci) {
         ci.cancel();
-        ReferenceList<ChunkHolder> unsyncedChunks = ((ChunkSystemServerLevel)this.level).moonrise$getUnsyncedChunks();
-        ChunkHolder[] chunkHolders = unsyncedChunks.getRawDataUnchecked();
-        int totalUnsyncedChunks = unsyncedChunks.size();
+        final ReferenceList<ChunkHolder> unsyncedChunks = ((ChunkSystemServerLevel)this.level).moonrise$getUnsyncedChunks();
+        final ChunkHolder[] chunkHolders = unsyncedChunks.getRawDataUnchecked();
+        final int totalUnsyncedChunks = unsyncedChunks.size();
         Objects.checkFromToIndex(0, totalUnsyncedChunks, chunkHolders.length);
 
         for(int i = 0; i < totalUnsyncedChunks; ++i) {
-            ChunkHolder chunkHolder = chunkHolders[i];
+            final ChunkHolder chunkHolder = chunkHolders[i];
             if(chunkHolder == null) continue;
 
-            LevelChunk chunk = chunkHolder.getChunkToSend();
+            //Check null
+            final LevelChunk chunk = chunkHolder.getChunkToSend();
             if(chunk == null) continue;
 
             chunkHolder.broadcastChanges(chunk);
