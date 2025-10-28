@@ -91,7 +91,7 @@ public class BtsEngineConcurrentCommands {
 
     // Методы для получения доступных модулей и элементов
     private static List<String> getAvailableModules() {
-        return Arrays.asList(
+        return List.of(
                 "server"
         );
     }
@@ -100,7 +100,7 @@ public class BtsEngineConcurrentCommands {
         // Возвращаем элементы для конкретного модуля
         switch (module) {
             case "server":
-                return Arrays.asList("world_generation", "entity_tick", "block_tick", "network_synchronize");
+                return Arrays.asList("world_generation", "entity_tick", "block_tick", "network_synchronize", "global_tick");
             default:
                 return List.of("default_element");
         }

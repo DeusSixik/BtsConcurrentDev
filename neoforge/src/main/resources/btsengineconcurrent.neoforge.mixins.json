@@ -19,6 +19,7 @@
     "fix.naturespirit.NaturesSpirit$SurfaceBuilderMixin",
     "fix.terrablender.Terrablender$NamespacedSurfaceRuleSource$FixBiomeGetter",
     "fix.wootrevived.DropSimulatorMixin$FixEntityManager",
+    "profiler.Mixin$EntityTickListMixin$MoonriseProfiler",
     "rework_block_system.MixinChunkHolder$SynchronizeBlockChangesNetwork",
     "rework_block_system.MixinServerLevel$RemoveRecursiveCall",
     "rework_block_system.MoonriseMixinServerChunkCache",

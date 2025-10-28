@@ -18,11 +18,12 @@ public class BtsProfilerUtils {
     }
 
     public static void startZone(String name, BtsProfilerSettings.Type type) {
-        startZone(name, type.isActive());
+        if(isStarted && type.isActive()) TracyProfiler.startZone(name);
     }
 
     public static void endZone(String name, BtsProfilerSettings.Type type) {
-        endZone(name, type.isActive());
+        if(isStarted && type.isActive())
+            TracyProfiler.endZone(name);
     }
 
     public static void startZone(String name) {

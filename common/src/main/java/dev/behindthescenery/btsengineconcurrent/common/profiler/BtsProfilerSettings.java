@@ -5,6 +5,7 @@ import java.util.function.Supplier;
 
 public class BtsProfilerSettings {
 
+    public static boolean Global = true;
     public static boolean WorldGeneration = false;
     public static boolean EntityTick = false;
     public static boolean BlockTick = false;
@@ -29,6 +30,10 @@ public class BtsProfilerSettings {
                     NetworkSynchronize = state;
                     break;
                 }
+                case "global_tick": {
+                    Global = state;
+                    break;
+                }
                 default: {
                     return false;
                 }
@@ -46,6 +51,7 @@ public class BtsProfilerSettings {
         builder.append("        EntityTick").append(" = ").append(EntityTick).append("\n");
         builder.append("        BlockTick").append(" = ").append(BlockTick).append("\n");
         builder.append("        NetworkSynchronize").append(" = ").append(NetworkSynchronize);
+        builder.append("        GlobalTick").append(" = ").append(Global);
         return builder.toString();
     }
 
@@ -53,7 +59,8 @@ public class BtsProfilerSettings {
         WorldGen(1 << 1, () -> WorldGeneration),
         EntityTick(1 << 2, () -> BtsProfilerSettings.EntityTick),
         BlockTick(1 << 3, () -> BtsProfilerSettings.BlockTick),
-        NetworkSynchronize(1 << 4, () -> BtsProfilerSettings.NetworkSynchronize);
+        NetworkSynchronize(1 << 4, () -> BtsProfilerSettings.NetworkSynchronize),
+        GlobalTick(1 << 5, () -> Global);
 
         public final int bits;
         public final Supplier<Boolean> getter;

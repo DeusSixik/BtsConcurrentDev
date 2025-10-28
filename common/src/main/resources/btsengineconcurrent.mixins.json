@@ -6,7 +6,9 @@
   "mixins": [
     "SurfaceRulesContextAccess",
     "profiler.CommandsMixin",
-    "profiler.MixinMinecraftServer$Profiler"
+    "profiler.MixinEntityTickList$Profile",
+    "profiler.MixinMinecraftServer$Profiler",
+    "profiler.MixinServerLevel$Profiler"
   ],
   "injectors": {
     "defaultRequire": 1
