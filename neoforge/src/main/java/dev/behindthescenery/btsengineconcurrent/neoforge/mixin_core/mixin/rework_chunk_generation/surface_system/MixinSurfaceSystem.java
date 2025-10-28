@@ -3,7 +3,10 @@ package dev.behindthescenery.btsengineconcurrent.neoforge.mixin_core.mixin.rewor
 import dev.behindthescenery.btsengineconcurrent.ReflectionsUtils;
 import dev.behindthescenery.btsengineconcurrent.common.chunk_generation.surface_system.SurfaceContextPool;
 import dev.behindthescenery.btsengineconcurrent.common.chunk_generation.surface_system.SurfaceSystemBlockColumn;
+import dev.behindthescenery.btsengineconcurrent.common.profiler.BtsProfilerSettings;
+import dev.behindthescenery.btsengineconcurrent.common.profiler.BtsProfilerUtils;
 import dev.behindthescenery.btsengineconcurrent.common.utils.SimpleObjectPool;
+import net.minecraft.advancements.critereon.UsedTotemTrigger;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -45,6 +48,9 @@ public abstract class MixinSurfaceSystem {
      */
     @Overwrite
     public void buildSurface(RandomState randomState, BiomeManager biomeManager, Registry<Biome> biomes, boolean useLegacyRandomSource, WorldGenerationContext context, ChunkAccess chunk, NoiseChunk noiseChunk, SurfaceRules.RuleSource ruleSource) {
+        final String name = "Build Surface";
+
+        BtsProfilerUtils.startZone(name, BtsProfilerSettings.Type.WorldGen);
         final ChunkPos chunkPos = chunk.getPos();
         final int startX = chunkPos.getMinBlockX();
         final int startZ = chunkPos.getMinBlockZ();
@@ -133,6 +139,8 @@ public abstract class MixinSurfaceSystem {
         } finally {
             pool.release(ctx);
         }
+
+        BtsProfilerUtils.endZone(name, BtsProfilerSettings.Type.WorldGen);
     }
 
     /**

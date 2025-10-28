@@ -4,7 +4,9 @@
   "compatibilityLevel": "JAVA_21",
   "minVersion": "0.8",
   "mixins": [
-    "SurfaceRulesContextAccess"
+    "SurfaceRulesContextAccess",
+    "profiler.CommandsMixin",
+    "profiler.MixinMinecraftServer$Profiler"
   ],
   "injectors": {
     "defaultRequire": 1

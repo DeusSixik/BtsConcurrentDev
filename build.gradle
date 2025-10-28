@@ -49,6 +49,10 @@ subprojects {
             name "latviandevReleases"
             url "https://maven.latvian.dev/releases"
         }
+
+        flatDir {
+            dirs "${rootDir}/libs"
+        }
     }
 
     dependencies {

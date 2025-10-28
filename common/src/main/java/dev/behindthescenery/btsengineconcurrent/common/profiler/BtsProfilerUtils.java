@@ -1,0 +1,42 @@
+package dev.behindthescenery.btsengineconcurrent.common.profiler;
+
+import dev.sdm.profiler.TracyProfiler;
+import dev.sdm.profiler.network.TcpClient;
+
+import java.net.Socket;
+
+public class BtsProfilerUtils {
+
+    public static boolean isStarted = false;
+
+    public static void startZone(String name, boolean active) {
+        if(active) startZone(name);
+    }
+
+    public static void endZone(String name, boolean active) {
+        if(active) endZone(name);
+    }
+
+    public static void startZone(String name, BtsProfilerSettings.Type type) {
+        startZone(name, type.isActive());
+    }
+
+    public static void endZone(String name, BtsProfilerSettings.Type type) {
+        endZone(name, type.isActive());
+    }
+
+    public static void startZone(String name) {
+        if(isStarted)
+            TracyProfiler.startZone(name);
+    }
+
+    public static void endZone(String name) {
+        if(isStarted)
+            TracyProfiler.endZone(name);
+    }
+
+    public static boolean isConnected() {
+        final Socket socket = TcpClient.getSocket();
+        return socket != null && socket.isConnected() && !socket.isClosed();
+    }
+}

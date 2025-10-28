@@ -27,8 +27,8 @@ public class MixinConfiguredFeature<FC extends FeatureConfiguration, F extends F
     private F feature;
 
     /**
-     * @author Sixik
-     * @reason "<a href="https://github.com/RelativityMC/C2ME-fabric/blob/dev/1.21.10/c2me-opts-allocs/src/main/java/com/ishland/c2me/opts/allocs/mixin/object_pooling_caching/MixinConfiguredFeature.java">Author ishland</a>"
+     * @author <a href="https://github.com/RelativityMC/C2ME-fabric/blob/dev/1.21.10/c2me-opts-allocs/src/main/java/com/ishland/c2me/opts/allocs/mixin/object_pooling_caching/MixinConfiguredFeature.java">Author ishland</a>
+     * @reason
      */
     @Overwrite
     public boolean place(WorldGenLevel reader, ChunkGenerator chunkGenerator, RandomSource random, BlockPos pos) {

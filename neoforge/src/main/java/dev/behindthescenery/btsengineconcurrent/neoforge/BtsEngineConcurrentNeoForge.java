@@ -25,8 +25,6 @@ public final class BtsEngineConcurrentNeoForge {
                 return ModList.get().isLoaded(modId);
             }
         };
-
-
         BtsEngineConcurrent.init();
 
         if(FMLEnvironment.production) return;

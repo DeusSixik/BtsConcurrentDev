@@ -24,6 +24,10 @@ import org.spongepowered.asm.mixin.Unique;
 
 import java.util.function.Function;
 
+/**
+ * TODO: Fix Chunk carver error!
+ */
+@Deprecated
 @Mixin(CaveWorldCarver.class)
 public abstract class MixinCaveWorldCarver extends WorldCarver<CaveCarverConfiguration> {
 

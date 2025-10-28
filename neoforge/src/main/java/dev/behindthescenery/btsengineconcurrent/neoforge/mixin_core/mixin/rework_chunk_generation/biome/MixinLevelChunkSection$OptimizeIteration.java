@@ -1,5 +1,7 @@
 package dev.behindthescenery.btsengineconcurrent.neoforge.mixin_core.mixin.rework_chunk_generation.biome;
 
+import dev.behindthescenery.btsengineconcurrent.common.profiler.BtsProfilerSettings;
+import dev.behindthescenery.btsengineconcurrent.common.profiler.BtsProfilerUtils;
 import net.minecraft.core.Holder;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeResolver;
@@ -24,8 +26,10 @@ public class MixinLevelChunkSection$OptimizeIteration {
      */
     @Overwrite
     public void fillBiomesFromNoise(BiomeResolver biomeResolver, Climate.Sampler climateSampler, int x, int y, int z) {
-        final PalettedContainer<Holder<Biome>> palettedcontainer = this.biomes.recreate();
+        final String name = "Fill Biome From Noise";
 
+        BtsProfilerUtils.startZone(name, BtsProfilerSettings.Type.WorldGen);
+        final PalettedContainer<Holder<Biome>> palettedcontainer = this.biomes.recreate();
         for (int pX = 0; pX < 4; ++pX) {
             final int preX = x + pX;
             for (int pY = 0; pY < 4; ++pY) {
@@ -38,5 +42,6 @@ public class MixinLevelChunkSection$OptimizeIteration {
             }
         }
         this.biomes = palettedcontainer;
+        BtsProfilerUtils.endZone(name, BtsProfilerSettings.Type.WorldGen);
     }
 }

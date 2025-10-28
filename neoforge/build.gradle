@@ -120,6 +120,7 @@ dependencies {
 
     compileOnly "curse.maven:environmental-388992:7122147"
 
+    minecraftClientRuntimeLibraries("dev.sdm:TracySocketClient:0.12.2-1")
 }
 
 processResources {

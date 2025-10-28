@@ -1,6 +1,8 @@
 package dev.behindthescenery.btsengineconcurrent.neoforge.mixin_core.mixin.rework_chunk_generation;
 
 import dev.behindthescenery.btsengineconcurrent.ReflectionsUtils;
+import dev.behindthescenery.btsengineconcurrent.common.profiler.BtsProfilerSettings;
+import dev.behindthescenery.btsengineconcurrent.common.profiler.BtsProfilerUtils;
 import dev.behindthescenery.btsengineconcurrent.common.utils.MinecraftObjectsCache;
 import it.unimi.dsi.fastutil.ints.IntArraySet;
 import it.unimi.dsi.fastutil.ints.IntSet;
@@ -88,6 +90,9 @@ public abstract class MixinChunkGenerator$BiomeDecotration {
      */
     @Overwrite
     public void applyBiomeDecoration(WorldGenLevel level, ChunkAccess chunk, StructureManager structureManager) {
+        final String name = "Apply Biome Decoration";
+
+        BtsProfilerUtils.startZone(name, BtsProfilerSettings.Type.WorldGen);
         final ChunkPos chunkpos = chunk.getPos();
         if (SharedConstants.debugVoidTerrain(chunkpos)) return;
 
@@ -188,6 +193,7 @@ public abstract class MixinChunkGenerator$BiomeDecotration {
             crashreport.addCategory("Generation").setDetail("CenterX", chunkpos.x).setDetail("CenterZ", chunkpos.z).setDetail("Decoration Seed", decorationSeed);
             throw new ReportedException(crashreport);
         }
+        BtsProfilerUtils.endZone(name, BtsProfilerSettings.Type.WorldGen);
     }
 
     /**

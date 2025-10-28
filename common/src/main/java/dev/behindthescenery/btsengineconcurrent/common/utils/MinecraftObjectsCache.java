@@ -1,6 +1,7 @@
 package dev.behindthescenery.btsengineconcurrent.common.utils;
 
 import com.google.common.collect.Lists;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
@@ -12,24 +13,24 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
+import java.util.function.IntFunction;
 
 public class MinecraftObjectsCache {
 
     public static final Generator GENERATOR = new Generator();
     public static final MobSpawn MOB_SPAWN = new MobSpawn();
+    public static final OreGeneration ORE_GENERATION = new OreGeneration();
+    public static final Noise NOISE = new Noise();
 
     public static class Generator {
 
-        private boolean ready = false;
-
-        private List<List<Structure>> structures_cached;
-        private List<FeatureSorter.StepFeatureData> feature_per_step_cached;
-        private int feature_per_step_size;
+        protected boolean ready = false;
+        protected List<List<Structure>> structures_cached;
+        protected List<FeatureSorter.StepFeatureData> feature_per_step_cached;
+        protected int feature_per_step_size;
 
         protected Generator() { }
 
@@ -78,7 +79,7 @@ public class MinecraftObjectsCache {
     }
 
     public static class MobSpawn {
-        private final Map<MobCacheKey, WeightedRandomList<MobSpawnSettings.SpawnerData>> mobCache =
+        protected final Map<MobCacheKey, WeightedRandomList<MobSpawnSettings.SpawnerData>> mobCache =
                 new ConcurrentHashMap<>();
 
         protected MobSpawn() {
@@ -93,4 +94,23 @@ public class MinecraftObjectsCache {
 
     public record MobCacheKey(Holder<Biome> biome, MobCategory category, @Nullable Structure structure) {}
 
+    public static class OreGeneration {
+
+        protected static final IntFunction<BitSet> BIT_SET_CONSTRUCTOR = BitSet::new;
+
+        protected ThreadLocal<Int2ObjectOpenHashMap<BitSet>> BITSETS = ThreadLocal.withInitial(Int2ObjectOpenHashMap::new);
+
+        protected OreGeneration() {}
+
+        public BitSet getOrCreate(int bits) {
+            final BitSet bitSet = BITSETS.get().computeIfAbsent(bits, BIT_SET_CONSTRUCTOR);
+            bitSet.clear();
+            return bitSet;
+        }
+    }
+
+    public static class Noise {
+
+
+    }
 }

@@ -1,7 +1,7 @@
 package dev.behindthescenery.btsengineconcurrent.common.utils;
 
 /**
- * "<a href="https://github.com/RelativityMC/FlowSched/blob/master/src/main/java/com/ishland/flowsched/util/Assertions.java">Author ishland</a>"
+ * <a href="https://github.com/RelativityMC/FlowSched/blob/master/src/main/java/com/ishland/flowsched/util/Assertions.java">Author ishland</a>
  */
 public class Assertions {
 
