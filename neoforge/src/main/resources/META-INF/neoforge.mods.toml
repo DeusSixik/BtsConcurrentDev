@@ -27,6 +27,13 @@ versionRange = "[1.21.1,)"
 ordering = "NONE"
 side = "BOTH"
 
+[[dependencies.btsengineconcurrent]]
+modId = "moonrise"
+type = "required"
+versionRange = "[0.0.1,)"
+ordering = "NONE"
+side = "BOTH"
+
 [[accessTransformers]]
 file="META-INF/accesstransformer.cfg"
 
