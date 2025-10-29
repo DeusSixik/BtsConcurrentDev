@@ -13,5 +13,6 @@ public final class BtsEngineConcurrent {
 
     public static void init() {
         TracyProfiler.setLogger(LOGGER::info);
+
     }
 }

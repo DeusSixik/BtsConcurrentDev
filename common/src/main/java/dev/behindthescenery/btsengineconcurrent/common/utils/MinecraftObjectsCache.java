@@ -23,7 +23,6 @@ public class MinecraftObjectsCache {
     public static final Generator GENERATOR = new Generator();
     public static final MobSpawn MOB_SPAWN = new MobSpawn();
     public static final OreGeneration ORE_GENERATION = new OreGeneration();
-    public static final Noise NOISE = new Noise();
 
     public static class Generator {
 
@@ -32,6 +31,9 @@ public class MinecraftObjectsCache {
         protected List<FeatureSorter.StepFeatureData> feature_per_step_cached;
         protected int feature_per_step_size;
 
+        private BiomeSource lastBiomeSource;
+        private RegistryAccess lastRegistryAccess;
+
         protected Generator() { }
 
 
@@ -39,8 +41,18 @@ public class MinecraftObjectsCache {
             ready = false;
         }
 
-        public Generator updateRegistryCache(BiomeSource biomeSource, Function<Holder<Biome>, BiomeGenerationSettings> generationSettingsGetter, RegistryAccess registryAccess) {
-            if(ready) return this;
+        public Generator updateRegistryCache(BiomeSource bs, Function<Holder<Biome>, BiomeGenerationSettings> g, RegistryAccess ra) {
+            if (!ready || this.lastBiomeSource != bs || this.lastRegistryAccess != ra) {
+                synchronized (this) {
+                    rebuild(bs, g, ra);
+                }
+            }
+            return this;
+        }
+
+        protected void rebuild(BiomeSource biomeSource, Function<Holder<Biome>, BiomeGenerationSettings> generationSettingsGetter, RegistryAccess registryAccess) {
+            this.lastBiomeSource = biomeSource;
+            this.lastRegistryAccess = registryAccess;
 
             final Registry<Structure> structure = registryAccess.registryOrThrow(Registries.STRUCTURE);
             final int decorationSize = GenerationStep.Decoration.values().length;
@@ -54,11 +66,9 @@ public class MinecraftObjectsCache {
             ready = true;
 
             createFeatureCache(biomeSource, generationSettingsGetter);
-
-            return this;
         }
 
-        public void createFeatureCache(BiomeSource biomeSource, Function<Holder<Biome>, BiomeGenerationSettings> generationSettingsGetter) {
+        protected void createFeatureCache(BiomeSource biomeSource, Function<Holder<Biome>, BiomeGenerationSettings> generationSettingsGetter) {
             feature_per_step_cached = FeatureSorter.buildFeaturesPerStep(List.copyOf(biomeSource.possibleBiomes()),
                     arg -> generationSettingsGetter.apply(arg)
                             .features(), true);
@@ -107,10 +117,5 @@ public class MinecraftObjectsCache {
             bitSet.clear();
             return bitSet;
         }
-    }
-
-    public static class Noise {
-
-
     }
 }

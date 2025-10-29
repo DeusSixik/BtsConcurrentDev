@@ -69,14 +69,6 @@ public abstract class MixinChunkGenerator$BiomeDecotration {
         MinecraftObjectsCache.GENERATOR.resetCache();
     }
 
-//    /**
-//     * @author Sixik
-//     * @reason Disabled. Not needed
-//     */
-//    @Overwrite
-//    @ApiStatus.Internal
-//    public void refreshFeaturesPerStep() { }
-
     /**
      * @author Sixik
      * @reason Disabled. Not needed
@@ -133,9 +125,9 @@ public abstract class MixinChunkGenerator$BiomeDecotration {
 
             for (int step = 0; step < maxFeaturePerStep; ++step) {
                 int featureIndex = 0;
+
                 if (structureManager.shouldGenerateStructures()) {
                     worldgenrandom.setFeatureSeed(decorationSeed, featureIndex, step);
-
                     for (Structure structure : structureCache.get(step)) {
                         try {
                             level.setCurrentlyGenerating(crashWhenLoadStructure);
@@ -172,6 +164,7 @@ public abstract class MixinChunkGenerator$BiomeDecotration {
 
                     for (int k1 = 0; k1 < instetSize; ++k1) {
                         final int l1 = aint[k1];
+
                         final PlacedFeature placedfeature = featuresorter$stepfeaturedata.features().get(l1);
                         worldgenrandom.setFeatureSeed(decorationSeed, l1, step);
 
