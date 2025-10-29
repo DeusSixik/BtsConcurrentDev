@@ -24,6 +24,9 @@ public class BtsEngineConcurrentMixinPluginCommon implements IMixinConfigPlugin 
         create("", new MixinApplier.Param(
                 "dev.behindthescenery.btsengineconcurrent.neoforge.mixin_core.mixin.fix.moonrise.LevelMixin",
                 "ca.spottedleaf.moonrise.mixin.chunk_system.LevelMixin"
+        ), new MixinApplier.Param(
+                "",
+                "ca.spottedleaf.moonrise.mixin.chunk_system.ChunkGeneratorMixin"
         ));
         create("com.copycatsplus.copycats.Copycats", new MixinApplier.Param(
                 "dev.behindthescenery.btsengineconcurrent.neoforge.mixin_core.mixin.fix.copycat.CopyCats$LiquidBlockRendererMixin$Fix",

@@ -5,6 +5,7 @@
   "minVersion": "0.8",
   "plugin": "dev.behindthescenery.btsengineconcurrent.neoforge.mixin_core.BtsEngineConcurrentMixinPluginNeoForge",
   "mixins": [
+    "async.MixinLocateCommand$Async",
     "fix.biolith.Biolith$MixinSurfaceBuilder",
     "fix.biomewegone.BiomeWeGone$SurfaceSystemMixin",
     "fix.enhancedvisuals.EnhancedVisuals$ExplosionMixin",
@@ -47,6 +48,7 @@
     "rework_chunk_generation.noise.density_functions.MixinWeirdScaledSampler",
     "rework_chunk_generation.noise.density_functions.MixinYClampedGradient",
     "rework_chunk_generation.structures.MixinChunkAccess$SynchronizeStructureData",
+    "rework_chunk_generation.structures.MixinChunkGenerator$StructureFinder",
     "rework_chunk_generation.structures.MixinChunkGenerator$StructuresCreate",
     "rework_chunk_generation.surface_rules.MixinSurfaceRules$Context$OptimizeOperation",
     "rework_chunk_generation.surface_rules.MixinSurfaceRules$SequenceRuleSource$OptimizeOperation",

@@ -1,6 +1,8 @@
 package dev.behindthescenery.btsengineconcurrent.neoforge.mixin_core.mixin.rework_chunk_generation.features;
 
 import dev.behindthescenery.btsengineconcurrent.common.chunk_generation.features.PooledFeatureContext;
+import dev.behindthescenery.btsengineconcurrent.common.profiler.BtsProfilerSettings;
+import dev.behindthescenery.btsengineconcurrent.common.profiler.BtsProfilerUtils;
 import dev.behindthescenery.btsengineconcurrent.common.utils.SimpleObjectPool;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
@@ -36,11 +38,15 @@ public class MixinConfiguredFeature<FC extends FeatureConfiguration, F extends F
 
         final SimpleObjectPool<PooledFeatureContext<?>> pool = PooledFeatureContext.POOL.get();
         final PooledFeatureContext<FC> context = (PooledFeatureContext<FC>) pool.alloc();
+
+        final String name = "Feature: " + feature.getClass().getName();
+        BtsProfilerUtils.startZone(name, BtsProfilerSettings.Type.WorldGen);
         try {
             context.reInit(null, reader, chunkGenerator, random, pos, config);
             return feature.place(context);
         } finally {
             pool.release(context);
+            BtsProfilerUtils.endZone(name, BtsProfilerSettings.Type.WorldGen);
         }
     }
 }

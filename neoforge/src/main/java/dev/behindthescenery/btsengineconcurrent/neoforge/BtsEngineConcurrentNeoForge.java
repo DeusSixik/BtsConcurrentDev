@@ -27,6 +27,8 @@ public final class BtsEngineConcurrentNeoForge {
         };
         BtsEngineConcurrent.init();
 
+
+
         if(FMLEnvironment.production) return;
         NeoForge.EVENT_BUS.addListener(BtsEngineConcurrentNeoForge::onPlayerDropItem);
     }

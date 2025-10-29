@@ -36,12 +36,15 @@ import org.apache.commons.lang3.NotImplementedException;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -67,6 +70,17 @@ public abstract class MixinChunkGenerator$BiomeDecotration {
     @Inject(method = "<init>(Lnet/minecraft/world/level/biome/BiomeSource;Ljava/util/function/Function;)V", at = @At("RETURN"))
     public void bts$init(CallbackInfo ci) {
         MinecraftObjectsCache.GENERATOR.resetCache();
+    }
+
+    @Redirect(
+            method = {"createBiomes(Lnet/minecraft/world/level/levelgen/RandomState;Lnet/minecraft/world/level/levelgen/blending/Blender;Lnet/minecraft/world/level/StructureManager;Lnet/minecraft/world/level/chunk/ChunkAccess;)Ljava/util/concurrent/CompletableFuture;"},
+            at = @At(
+                    value = "INVOKE",
+                    target = "Ljava/util/concurrent/CompletableFuture;supplyAsync(Ljava/util/function/Supplier;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/CompletableFuture;"
+            )
+    )
+    private <U> CompletableFuture<U> redirectBiomesExecutor(Supplier<U> supplier, Executor badExecutor) {
+        return CompletableFuture.supplyAsync(supplier, Runnable::run);
     }
 
     /**
